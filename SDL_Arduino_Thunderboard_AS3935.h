@@ -29,7 +29,10 @@
 #include <limits.h>
 
 // register access macros - register address, bitmask
-#define AS3935_AFE_GB		0x00, 0x3E
+
+// Another long term bug... should be 0x00, 0xC1  NOT 0x00, 0x3E
+#define AS3935_AFE_GB		0x00, 0xC1
+
 #define AS3935_PWD		    0x00, 0x01
 #define AS3935_NF_LEV		0x01, 0x70
 #define AS3935_WDTH		    0x01, 0x0F
@@ -46,8 +49,10 @@
 #define AS3935_TUN_CAP		0x08, 0x0F
 
 // other constants
-#define AS3935_AFE_INDOOR	0x12
-#define AS3935_AFE_OUTDOOR	0x0E
+// This bug has been in a number of SDL versions of code.  The proper value is 0x24 NOT 0x12
+#define AS3935_AFE_INDOOR	0x24
+// This bug has been in a number of SDL versions of code.  The proper value is 0x1C NOT 0x0E
+#define AS3935_AFE_OUTDOOR	0x1C
 
 class SDL_Arduino_ThunderBoard_AS3935
 {
@@ -67,6 +72,7 @@ SDL_Arduino_ThunderBoard_AS3935(uint8_t irq,uint8_t addr);
 	uint16_t getMinimumLightnings();
 	uint16_t setMinimumLightnings(uint16_t minlightning);
 	uint16_t lightningDistanceKm();
+  uint16_t getEnergy(); // Adding Energy -- EDB
 	void setIndoors();
 	void setOutdoors();
 	uint16_t getNoiseFloor();

@@ -202,6 +202,12 @@ uint16_t SDL_Arduino_ThunderBoard_AS3935::lightningDistanceKm()
   return registerRead(AS3935_DISTANCE);
 }
 
+// Added EDB -- This function is shown ina number of other AS3935 libraries, so adding it here.
+uint16_t SDL_Arduino_ThunderBoard_AS3935::getEnergy()
+{
+  return (registerRead(0x06, 0x1F) << 16 | registerRead(0x06, 0x00) << 8 | registerRead(0x04, 0x00));
+}
+
 void SDL_Arduino_ThunderBoard_AS3935::setIndoors()
 {
   registerWrite(AS3935_AFE_GB, AS3935_AFE_INDOOR);
